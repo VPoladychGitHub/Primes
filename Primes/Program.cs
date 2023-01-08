@@ -18,29 +18,26 @@ class Program
 {
     static async Task Main()
     {
-       // int n = 99;
         Console.Write(" Input Int: ");
         int n = Convert.ToInt32(Console.ReadLine());
+        // int n = 99;
         var primes = await FindPrimesAsync(n);
 
-        Console.WriteLine("count: " + primes.Count);
-        foreach (int i in primes)
+        foreach (int t in primes)
         {
-            Console.WriteLine(i + " ");
+            Console.Write($"{t}   ");
         }
     }
-
     static async Task<ConcurrentBag<int>> FindPrimesAsync(int n)
     {
         ConcurrentBag<int> ints = new();
-        for (int i = 0; i < n; i++)
+        Parallel.For(0, n, i =>
         {
             if (IsPrimeNumber(i))
             {
                 ints.Add(i);
             }
-        }
-
+        });
         return ints;
     }
     static bool IsPrimeNumber(int n)
