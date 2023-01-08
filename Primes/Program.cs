@@ -16,33 +16,23 @@ using System.Collections.Concurrent;
 
 class Program
 {
-
     static async Task Main()
     {
-        var thread = new Thread(proc);
-        thread.Start();
-        thread.Join();
+       // int n = 99;
+        Console.Write(" Input Int: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+        var primes = await FindPrimesAsync(n);
 
-
-        async void proc()
+        Console.WriteLine("count: " + primes.Count);
+        foreach (int i in primes)
         {
-            Console.Write(" Input Int: ");
-            int n = Convert.ToInt32(Console.ReadLine());
-            //int n = 99;
-            var primes = await FindPrimesAsync(n);
-            // var primes = FindPrimesAsync(n);
-            foreach (int t in primes)
-            {
-                Console.Write($"{t}   ");
-            }
-
+            Console.WriteLine(i + " ");
         }
     }
 
     static async Task<ConcurrentBag<int>> FindPrimesAsync(int n)
     {
         ConcurrentBag<int> ints = new();
-        Console.WriteLine("Простые числа из диапазона ({0}, {1})", 0, n);
         for (int i = 0; i < n; i++)
         {
             if (IsPrimeNumber(i))
@@ -50,10 +40,9 @@ class Program
                 ints.Add(i);
             }
         }
-        //  Console.WriteLine($"count: {ints.Count} ");
+
         return ints;
     }
-
     static bool IsPrimeNumber(int n)
     {
         var result = true;
